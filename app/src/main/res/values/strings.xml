@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">20220504BiratRaiNYCSchool</string>
+    <string name="sat_score">Sat Score</string>
+    <string name="data_error">Sat score not available.</string>
 </resources>
