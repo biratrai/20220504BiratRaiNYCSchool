@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 
 interface SchoolApi {
 
-    @GET("f9bf-2cp4.json")
+    @GET("s3k6-pzi2.json")
     Call<List<HighSchools>> getSchool();
 
     @GET("f9bf-2cp4.json")

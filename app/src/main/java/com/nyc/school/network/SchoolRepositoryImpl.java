@@ -1,8 +1,12 @@
 package com.nyc.school.network;
 
+import static com.nyc.school.data.Result.*;
+import static com.nyc.school.data.Result.Error;
+
 import android.util.Log;
 
 import com.nyc.school.data.HighSchools;
+import com.nyc.school.data.Result;
 import com.nyc.school.data.SatResult;
 
 import java.io.IOException;
@@ -15,6 +19,7 @@ import retrofit2.Call;
 
 
 public class SchoolRepositoryImpl implements SchoolRepository {
+    public static final String TAG = SchoolRepositoryImpl.class.getSimpleName();
     private final SchoolService schoolService;
 
     @Inject
@@ -26,26 +31,27 @@ public class SchoolRepositoryImpl implements SchoolRepository {
     public List<HighSchools> getSchool() {
         try {
             List<HighSchools> schools = schoolService.getSchool().execute().body();
-            Log.d("TAG", "Bire getSchool "+ schools);
+            Log.d(TAG, "getSchool() "+ schools);
             return schools;
         } catch (IOException e) {
-            Log.e("TAG", "Exception while fetching high school list "+e);
+            Log.e(TAG, "Exception while fetching high school list "+e);
         }
         return Collections.emptyList();
     }
 
     @Override
-    public SatResult getSatScores(String schoolId) {
-        SatResult result = null;
+    public Result getSatScores(String schoolId) {
+        Result<SatResult> result = null;
         try {
             Call<List<SatResult>> call = schoolService.getSatScores(schoolId);
             List<SatResult> results = call.execute().body();
-            Log.d("TAG", "Bire satResult "+ results);
+            Log.d(TAG, "The satResult "+ results);
             if (!(results != null && results.isEmpty())) {
-                result = results.get(0);
+                result = new Success<>(results.get(0));
             }
         } catch (IOException e) {
-            Log.e("TAG", "Exception occurred while fetching sat score ", e);
+            Log.e(TAG, "Exception occurred while fetching sat score ", e);
+            result = new Error<>(e);
         }
         return result;
     }
