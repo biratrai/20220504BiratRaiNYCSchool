@@ -7,7 +7,7 @@ import com.nyc.school.data.SatResult;
 import java.util.List;
 
 public interface SchoolRepository {
-    List<HighSchools> getSchool();
+    Result<List<HighSchools>> getSchool();
 
     Result<SatResult> getSatScores(String schoolId);
 }

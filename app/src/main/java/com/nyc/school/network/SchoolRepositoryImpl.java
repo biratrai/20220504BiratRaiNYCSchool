@@ -28,15 +28,19 @@ public class SchoolRepositoryImpl implements SchoolRepository {
     }
 
     @Override
-    public List<HighSchools> getSchool() {
+    public Result<List<HighSchools>> getSchool() {
+        Result<List<HighSchools>> result = null;
         try {
             List<HighSchools> schools = schoolService.getSchool().execute().body();
             Log.d(TAG, "getSchool() "+ schools);
-            return schools;
+            if (!(schools != null && schools.isEmpty())) {
+                result = new Success<>(schools);
+            }
+            return result;
         } catch (IOException e) {
             Log.e(TAG, "Exception while fetching high school list "+e);
+            return new Error<>(e);
         }
-        return Collections.emptyList();
     }
 
     @Override
