@@ -3,7 +3,7 @@ package com.nyc.school.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SatResult {
+public class SatScore {
 
     @SerializedName("dbn")
     @Expose

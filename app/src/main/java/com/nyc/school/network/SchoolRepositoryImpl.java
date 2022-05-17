@@ -7,10 +7,9 @@ import android.util.Log;
 
 import com.nyc.school.data.HighSchools;
 import com.nyc.school.data.Result;
-import com.nyc.school.data.SatResult;
+import com.nyc.school.data.SatScore;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,10 +44,10 @@ public class SchoolRepositoryImpl implements SchoolRepository {
 
     @Override
     public Result getSatScores(String schoolId) {
-        Result<SatResult> result = null;
+        Result<SatScore> result = null;
         try {
-            Call<List<SatResult>> call = schoolService.getSatScores(schoolId);
-            List<SatResult> results = call.execute().body();
+            Call<List<SatScore>> call = schoolService.getSatScores(schoolId);
+            List<SatScore> results = call.execute().body();
             Log.d(TAG, "The satResult "+ results);
             if (!(results != null && results.isEmpty())) {
                 result = new Success<>(results.get(0));

@@ -1,7 +1,7 @@
 package com.nyc.school.network;
 
 import com.nyc.school.data.HighSchools;
-import com.nyc.school.data.SatResult;
+import com.nyc.school.data.SatScore;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ class SchoolService implements SchoolApi {
     }
 
     @Override
-    public Call<List<SatResult>> getSatScores(String schoolId) {
+    public Call<List<SatScore>> getSatScores(String schoolId) {
         return schoolApi.getSatScores(schoolId);
     }
 }

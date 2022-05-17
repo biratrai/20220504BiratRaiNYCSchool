@@ -1,7 +1,7 @@
 package com.nyc.school.network;
 
 import com.nyc.school.data.HighSchools;
-import com.nyc.school.data.SatResult;
+import com.nyc.school.data.SatScore;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ interface SchoolApi {
     Call<List<HighSchools>> getSchool();
 
     @GET("f9bf-2cp4.json")
-    Call<List<SatResult>> getSatScores(@Query("dbn") String schoolId);
+    Call<List<SatScore>> getSatScores(@Query("dbn") String schoolId);
 }
 
 

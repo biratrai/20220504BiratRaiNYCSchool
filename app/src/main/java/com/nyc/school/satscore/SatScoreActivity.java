@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.nyc.school.R;
 import com.nyc.school.data.Result;
-import com.nyc.school.data.SatResult;
+import com.nyc.school.data.SatScore;
 import com.nyc.school.highschool.HighSchoolActivity;
 
 import android.content.Intent;
@@ -33,7 +33,7 @@ public class SatScoreActivity extends AppCompatActivity {
             Log.d("TAG", "Bire satscore " + satResult);
             findViewById(R.id.progress_bar).setVisibility(View.GONE);
             if (satResult instanceof Result.Success) {
-                setData((Result.Success<SatResult>) satResult);
+                setData((Result.Success<SatScore>) satResult);
             } else if (satResult instanceof Result.Error || satResult == null) {
                 findViewById(R.id.error_message).setVisibility(View.VISIBLE);
             }
@@ -47,7 +47,7 @@ public class SatScoreActivity extends AppCompatActivity {
         satScoreViewModel.fetchSatScore(highSchoolDbn);
     }
 
-    private void setData(Result.Success<SatResult> satResult) {
+    private void setData(Result.Success<SatScore> satResult) {
         TextView title = findViewById(R.id.title);
         title.setText("Average Sat score of " + satResult.data.getSchoolName());
         TextView mathScore = findViewById(R.id.math_score);
