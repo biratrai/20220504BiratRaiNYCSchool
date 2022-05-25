@@ -29,15 +29,7 @@ public class SatScoreActivity extends AppCompatActivity {
 
     private void initializeData() {
         SatScoreViewModel satScoreViewModel = new ViewModelProvider(this).get(SatScoreViewModel.class);
-        satScoreViewModel.getSatScore().observe(this, satResult -> {
-            Log.d("TAG", "Bire satscore " + satResult);
-            findViewById(R.id.progress_bar).setVisibility(View.GONE);
-            if (satResult instanceof Result.Success) {
-                setData((Result.Success<SatScore>) satResult);
-            } else if (satResult instanceof Result.Error || satResult == null) {
-                findViewById(R.id.error_message).setVisibility(View.VISIBLE);
-            }
-        });
+        satScoreViewModel.getSatScore().observe(this, this::handleData);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -45,6 +37,15 @@ public class SatScoreActivity extends AppCompatActivity {
 
         // Fetch sat score data
         satScoreViewModel.fetchSatScore(highSchoolDbn);
+    }
+
+    private void handleData(Result<SatScore> satResult) {
+        findViewById(R.id.progress_bar).setVisibility(View.GONE);
+        if (satResult instanceof Result.Success) {
+            setData((Result.Success<SatScore>) satResult);
+        } else if (satResult instanceof Result.Error || satResult == null) {
+            findViewById(R.id.error_message).setVisibility(View.VISIBLE);
+        }
     }
 
     private void setData(Result.Success<SatScore> satResult) {

@@ -39,9 +39,7 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
     private void initializeData() {
         HighSchoolViewModel highSchoolViewModel = new ViewModelProvider(this).get(HighSchoolViewModel.class);
 
-        highSchoolViewModel.getHighSchools().observe(this, highSchools -> {
-            setHighSchoolData(highSchools);
-        });
+        highSchoolViewModel.getHighSchools().observe(this, this::setHighSchoolData);
 
         highSchoolViewModel.fetchSchools();
     }
