@@ -13,6 +13,7 @@ import android.view.View;
 import com.nyc.school.R;
 import com.nyc.school.data.HighSchools;
 import com.nyc.school.data.Result;
+import com.nyc.school.databinding.ActivityHighSchoolBinding;
 import com.nyc.school.satscore.SatScoreActivity;
 
 import java.util.Collections;
@@ -25,11 +26,13 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
 
     public static final String HIGH_SCHOOL_DBN = "Sat_Score";
     private HighSchoolAdapter highSchoolAdapter;
+    private ActivityHighSchoolBinding activityHighSchoolBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_high_school);
+        activityHighSchoolBinding = ActivityHighSchoolBinding.inflate(getLayoutInflater());
+        setContentView(activityHighSchoolBinding.getRoot());
 
         initializeViews();
 
@@ -48,9 +51,9 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
         if (highSchools instanceof Result.Success) {
             highSchoolAdapter.setData(((Result.Success<List<HighSchools>>) highSchools).data);
         } else if (highSchools instanceof Result.Error || highSchools == null) {
-            findViewById(R.id.error_message).setVisibility(View.VISIBLE);
+            activityHighSchoolBinding.errorMessage.setVisibility(View.VISIBLE);
         }
-        findViewById(R.id.progress_bar).setVisibility(View.GONE);
+        activityHighSchoolBinding.progressBar.setVisibility(View.GONE);
     }
 
     private void initializeViews() {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.nyc.school.R;
 import com.nyc.school.data.Result;
 import com.nyc.school.data.SatScore;
+import com.nyc.school.databinding.ActivitySatScoreBinding;
 import com.nyc.school.highschool.HighSchoolActivity;
 
 import android.content.Intent;
@@ -19,10 +20,13 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SatScoreActivity extends AppCompatActivity {
 
+    private ActivitySatScoreBinding satScoreBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sat_score);
+        satScoreBinding = ActivitySatScoreBinding.inflate(getLayoutInflater());
+        setContentView(satScoreBinding.getRoot());
 
         initializeData();
     }
@@ -40,11 +44,11 @@ public class SatScoreActivity extends AppCompatActivity {
     }
 
     private void handleData(Result<SatScore> satResult) {
-        findViewById(R.id.progress_bar).setVisibility(View.GONE);
+        satScoreBinding.progressBar.setVisibility(View.GONE);
         if (satResult instanceof Result.Success) {
             setData((Result.Success<SatScore>) satResult);
         } else if (satResult instanceof Result.Error || satResult == null) {
-            findViewById(R.id.error_message).setVisibility(View.VISIBLE);
+            satScoreBinding.errorMessage.setVisibility(View.VISIBLE);
         }
     }
 
