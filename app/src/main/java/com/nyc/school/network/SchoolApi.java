@@ -14,11 +14,9 @@ interface SchoolApi {
     @GET("s3k6-pzi2.json")
     Call<List<HighSchools>> getSchool();
 
+    @GET("s3k6-pzi2.json")
+    Call<List<HighSchools>> searchSchool(@Query("source") String searchString);
+
     @GET("f9bf-2cp4.json")
     Call<List<SatScore>> getSatScores(@Query("dbn") String schoolId);
 }
-
-
-//https://data.cityofnewyork.us/resource/f9bf-2cp4.json?dbn=31R080
-//https://data.cityofnewyork.us/resource/f9bf-2cp4.json
-//https://data.cityofnewyork.us/resource/s3k6-pzi2.json

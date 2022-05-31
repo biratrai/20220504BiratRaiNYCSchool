@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.nyc.school.R;
 import com.nyc.school.data.HighSchools;
@@ -27,6 +28,7 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
     public static final String HIGH_SCHOOL_DBN = "Sat_Score";
     private HighSchoolAdapter highSchoolAdapter;
     private ActivityHighSchoolBinding activityHighSchoolBinding;
+    private HighSchoolViewModel highSchoolViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
     }
 
     private void initializeData() {
-        HighSchoolViewModel highSchoolViewModel = new ViewModelProvider(this).get(HighSchoolViewModel.class);
+        highSchoolViewModel = new ViewModelProvider(this).get(HighSchoolViewModel.class);
 
         highSchoolViewModel.getHighSchools().observe(this, this::setHighSchoolData);
 
@@ -62,6 +64,24 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
         recyclerView.setLayoutManager(layoutManager);
         highSchoolAdapter = new HighSchoolAdapter(Collections.emptyList(), this);
         recyclerView.setAdapter(highSchoolAdapter);
+
+        activityHighSchoolBinding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String searchString) {
+                handleSearch(searchString);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String searchString) {
+                handleSearch(searchString);
+                return false;
+            }
+        });
+    }
+
+    private void handleSearch(String searchString) {
+        highSchoolAdapter.getFilter().filter(searchString);
     }
 
     @Override

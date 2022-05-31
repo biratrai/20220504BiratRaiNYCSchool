@@ -26,6 +26,11 @@ class SchoolService implements SchoolApi {
     }
 
     @Override
+    public Call<List<HighSchools>> searchSchool(String searchString) {
+        return schoolApi.searchSchool(searchString);
+    }
+
+    @Override
     public Call<List<SatScore>> getSatScores(String schoolId) {
         return schoolApi.getSatScores(schoolId);
     }

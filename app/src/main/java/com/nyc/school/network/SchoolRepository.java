@@ -9,5 +9,7 @@ import java.util.List;
 public interface SchoolRepository {
     Result<List<HighSchools>> getSchool();
 
+    Result<List<HighSchools>> searchSchool(String searchString);
+
     Result<SatScore> getSatScores(String schoolId);
 }
