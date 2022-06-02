@@ -10,18 +10,14 @@ import com.nyc.school.data.Result;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SchoolRepositoryImplTest {
@@ -33,10 +29,7 @@ public class SchoolRepositoryImplTest {
     @Mock
     HighSchools highSchools;
 
-    SchoolRepository schoolRepository;
-
-    @Captor
-    ArgumentCaptor<Callback<List<HighSchools>>> loadSchoolsArgumentCaptor;
+    private SchoolRepository schoolRepository;
 
     @Before
     public void setUp() {
@@ -52,17 +45,18 @@ public class SchoolRepositoryImplTest {
 
         Result<List<HighSchools>> result = schoolRepository.getSchool();
 
-        verify(schoolService.getSchool());
-        Assert.assertTrue(result instanceof Result.Success );
+        verify(schoolService).getSchool();
+        Assert.assertTrue(result instanceof Result.Success);
     }
 
-    @Test(expected=IOException.class)
+    @Test
     public void testGetSchoolFetchesSchoolThrowsException() throws IOException {
         when(call.execute()).thenThrow(IOException.class);
 
         Result<List<HighSchools>> result = schoolRepository.getSchool();
 
-        verify(schoolService.getSchool());
-        Assert.assertTrue(result instanceof Result.Error );
+        verify(schoolService).getSchool();
+        Assert.assertTrue(result instanceof Result.Error);
+        Assert.assertTrue(((Result.Error<List<HighSchools>>) result).exception instanceof IOException);
     }
 }
