@@ -16,8 +16,8 @@ class SchoolService implements SchoolApi {
     private final SchoolApi schoolApi;
 
     @Inject
-    SchoolService(Retrofit retrofit) {
-        this.schoolApi = retrofit.create(SchoolApi.class);
+    SchoolService(SchoolApi schoolApi) {
+        this.schoolApi = schoolApi;
     }
 
     @Override

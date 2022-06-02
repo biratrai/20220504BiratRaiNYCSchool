@@ -16,7 +16,7 @@ class HighSchoolViewModelTest {
     // Subject under test
     private lateinit var highSchoolViewModel: HighSchoolViewModel
 
-    // Mock initialize
+    // Mock objects
     @Mock
     private lateinit var schoolRepository: SchoolRepository
 
@@ -38,8 +38,10 @@ class HighSchoolViewModelTest {
 
     @Test
     fun loadAllTasksFromRepository_loadingTogglesAndDataLoaded() {
+        // Act
         highSchoolViewModel.fetchSchools()
 
+        // Assert
         verify(schoolRepository).school
     }
 }

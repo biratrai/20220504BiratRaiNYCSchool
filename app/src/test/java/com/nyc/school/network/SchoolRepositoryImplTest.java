@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class SchoolRepositoryImplTest {
-
+    // Mock objects
     @Mock
     SchoolService schoolService;
     @Mock
@@ -29,6 +29,7 @@ public class SchoolRepositoryImplTest {
     @Mock
     HighSchools highSchools;
 
+    // Subject under test
     private SchoolRepository schoolRepository;
 
     @Before
@@ -40,21 +41,27 @@ public class SchoolRepositoryImplTest {
 
     @Test
     public void testGetSchoolFetchesSchoolGivesCorrectData() throws IOException {
+        // Arrange
         Response<List<HighSchools>> response = Response.success(Collections.singletonList(highSchools));
         when(call.execute()).thenReturn(response);
 
+        // Act
         Result<List<HighSchools>> result = schoolRepository.getSchool();
 
+        // Assert
         verify(schoolService).getSchool();
         Assert.assertTrue(result instanceof Result.Success);
     }
 
     @Test
     public void testGetSchoolFetchesSchoolThrowsException() throws IOException {
+        // Arrange
         when(call.execute()).thenThrow(IOException.class);
 
+        // Act
         Result<List<HighSchools>> result = schoolRepository.getSchool();
 
+        // Assert
         verify(schoolService).getSchool();
         Assert.assertTrue(result instanceof Result.Error);
         Assert.assertTrue(((Result.Error<List<HighSchools>>) result).exception instanceof IOException);

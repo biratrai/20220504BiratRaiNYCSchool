@@ -16,7 +16,7 @@ class SatScoreViewModelTest {
     // Subject under test
     private lateinit var satScoreViewModel: SatScoreViewModel
 
-    // Mock initialize
+    // Mock objects
     @Mock
     private lateinit var schoolRepository: SchoolRepository
 
@@ -38,7 +38,10 @@ class SatScoreViewModelTest {
 
     @Test
     fun loadAllTasksFromRepository_loadingTogglesAndDataLoaded() {
+        // Act
         satScoreViewModel.fetchSatScore("schoolId")
+
+        // Assert
         Mockito.verify(schoolRepository).getSatScores("schoolId")
     }
 }
