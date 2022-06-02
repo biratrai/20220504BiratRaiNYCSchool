@@ -28,7 +28,6 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
     public static final String HIGH_SCHOOL_DBN = "Sat_Score";
     private HighSchoolAdapter highSchoolAdapter;
     private ActivityHighSchoolBinding activityHighSchoolBinding;
-    private HighSchoolViewModel highSchoolViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class HighSchoolActivity extends AppCompatActivity implements HighSchoolA
     }
 
     private void initializeData() {
-        highSchoolViewModel = new ViewModelProvider(this).get(HighSchoolViewModel.class);
+        HighSchoolViewModel highSchoolViewModel = new ViewModelProvider(this).get(HighSchoolViewModel.class);
 
         highSchoolViewModel.getHighSchools().observe(this, this::setHighSchoolData);
 
