@@ -1,5 +1,6 @@
 package com.nyc.school.di
 
+import com.nyc.school.network.SchoolApi
 import com.nyc.school.network.SchoolRepository
 import com.nyc.school.network.SchoolRepositoryImpl
 import dagger.Module
@@ -37,5 +38,9 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun provideSchoolRepository(schoolRepository: SchoolRepositoryImpl): SchoolRepository = schoolRepository
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): SchoolApi = retrofit.create(SchoolApi::class.java)
 }
 
